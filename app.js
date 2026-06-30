@@ -899,23 +899,38 @@ function setupListeners() {
     });
   }
 
-  // Clear daily checklist helpers
+  // Context-aware Reset Button
   const clearDailyBtn = document.getElementById('btn-clear-daily');
   if (clearDailyBtn) {
     clearDailyBtn.addEventListener('click', () => {
-      if (confirm('Do you want to reset today\'s routines and trackers? (Doesn\'t affect skills or dashboard overall progress)')) {
-        Object.keys(state.checklists).forEach(key => {
-          // If it isn't an emergency tracker key, we can clear it
-          if (!key.startsWith('em-')) {
-            state.checklists[key] = false;
-            const cb = document.getElementById(key);
-            if (cb) {
-              cb.checked = false;
-              cb.closest('.checklist-item')?.classList.remove('checked');
-            }
+      const activePage = document.querySelector('.page-view.active');
+      if (!activePage) return;
+
+      const pageName = document.getElementById('header-title-text').textContent;
+      if (confirm(`Do you want to reset all checkboxes for ${pageName}?`)) {
+        
+        const pageCheckboxes = activePage.querySelectorAll('input.custom-checkbox');
+        pageCheckboxes.forEach(cb => {
+          const id = cb.id;
+          if (!id) return;
+
+          cb.checked = false;
+          cb.closest('.checklist-item')?.classList.remove('checked');
+
+          const type = cb.getAttribute('data-type');
+          if (type === 'checklist') {
+            state.checklists[id] = false;
+          } else if (type === 'tracker-checkbox') {
+            state.trackerTopics[id] = false;
+          } else if (type === 'resume-checkbox') {
+            state.resumeTrackers[id] = false;
+          } else if (type === 'project-checkbox') {
+            state.projectTrackers[id] = false;
           }
         });
+
         saveState();
+        updateDynamicStats();
       }
     });
   }
