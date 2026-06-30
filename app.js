@@ -513,39 +513,81 @@ function updateStreak() {
 // Render Daily Learning Log items
 function renderLearningLogs() {
   const listEl = document.getElementById('journal-list');
-  if (!listEl) return;
-  listEl.innerHTML = '';
+  const homeLearningText = document.getElementById('home-recent-learning');
 
-  if (state.dailyLearning.length === 0) {
-    listEl.innerHTML = '<div style="font-size:13px; color: var(--text-secondary); text-align:center; padding: 20px;">No entries logged yet. Capture your learning below!</div>';
-    return;
+  if (listEl) {
+    listEl.innerHTML = '';
+    
+    if (state.dailyLearning.length === 0) {
+      listEl.innerHTML = '<div style="font-size:13px; color: var(--text-secondary); text-align:center; padding: 20px;">No entries logged yet. Capture your learning below!</div>';
+    } else {
+      // Reverse list to show newest first
+      [...state.dailyLearning].reverse().forEach((entry, index) => {
+        // Need to calculate original array index because we reversed it
+        const originalIndex = state.dailyLearning.length - 1 - index;
+        
+        const card = document.createElement('div');
+        card.className = 'journal-entry-card';
+        card.innerHTML = `
+          <div class="journal-entry-header">
+            <span style="font-weight:700; color:var(--accent-hover);">📚 ${entry.category}</span>
+            <div style="display:flex; gap:12px; align-items:center;">
+              <span>📅 ${entry.date}</span>
+              <button class="btn-edit-log" data-index="${originalIndex}" style="background:none; border:none; cursor:pointer; color:var(--accent);" title="Edit Log">✏️</button>
+              <button class="btn-delete-log" data-index="${originalIndex}" style="background:none; border:none; cursor:pointer; color:var(--danger);" title="Delete Log">🗑</button>
+            </div>
+          </div>
+          <div class="journal-entry-title">${entry.learning}</div>
+          <div class="journal-entry-detail" style="margin-top: 10px;"><strong>Key Takeaway:</strong> ${entry.keyTakeaway}</div>
+          <div class="journal-entry-detail"><strong>Where learned:</strong> ${entry.source}</div>
+          <div class="journal-entry-detail"><strong>Application:</strong> ${entry.application}</div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      // Bind edit buttons
+      listEl.querySelectorAll('.btn-edit-log').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'));
+          const entry = state.dailyLearning[idx];
+          
+          document.getElementById('learn-category').value = entry.category;
+          document.getElementById('learn-topic').value = entry.learning;
+          document.getElementById('learn-takeaway').value = entry.keyTakeaway;
+          document.getElementById('learn-source').value = entry.source || '';
+          document.getElementById('learn-application').value = entry.application || '';
+          
+          // Remove the old entry since we are editing it
+          state.dailyLearning.splice(idx, 1);
+          saveState();
+          renderLearningLogs();
+          
+          // Scroll to the form
+          document.getElementById('add-learning-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      // Bind delete buttons
+      listEl.querySelectorAll('.btn-delete-log').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'));
+          if (confirm('Delete this learning log?')) {
+            state.dailyLearning.splice(idx, 1);
+            saveState();
+            renderLearningLogs();
+          }
+        });
+      });
+    }
   }
 
-  // Reverse list to show newest first
-  [...state.dailyLearning].reverse().forEach(entry => {
-    const card = document.createElement('div');
-    card.className = 'journal-entry-card';
-    card.innerHTML = `
-      <div class="journal-entry-header">
-        <span style="font-weight:700; color:var(--accent-hover);">📚 ${entry.category}</span>
-        <span>📅 ${entry.date}</span>
-      </div>
-      <div class="journal-entry-title">${entry.learning}</div>
-      <div class="journal-entry-detail" style="margin-top: 10px;"><strong>Key Takeaway:</strong> ${entry.keyTakeaway}</div>
-      <div class="journal-entry-detail"><strong>Where learned:</strong> ${entry.source}</div>
-      <div class="journal-entry-detail"><strong>Application:</strong> ${entry.application}</div>
-    `;
-    listEl.appendChild(card);
-  });
-
-  // Update Recent Learning ticker on Home Page
-  const homeLearningText = document.getElementById('home-recent-learning');
+  // Update Recent Learning ticker on Home Page (must happen even if array is empty)
   if (homeLearningText) {
     if (state.dailyLearning.length > 0) {
       const latest = state.dailyLearning[state.dailyLearning.length - 1];
       homeLearningText.innerHTML = `🌟 <strong>${latest.category}</strong>: ${latest.learning} <br><small style="color:var(--text-secondary);">Takeaway: ${latest.keyTakeaway}</small>`;
     } else {
-      homeLearningText.textContent = "No recent learning logs yet.";
+      homeLearningText.textContent = "No learning logged for today. Finish evening study and log it!";
     }
   }
 }
