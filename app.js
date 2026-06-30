@@ -899,6 +899,18 @@ function setupListeners() {
     });
   }
 
+  // Manual streak reset button
+  const btnResetStreak = document.getElementById('btn-reset-streak');
+  if (btnResetStreak) {
+    btnResetStreak.addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset your streak to 0?')) {
+        state.streak = 0;
+        saveState();
+        updateStreak();
+      }
+    });
+  }
+
   // Context-aware Reset Button
   const clearDailyBtn = document.getElementById('btn-clear-daily');
   if (clearDailyBtn) {
