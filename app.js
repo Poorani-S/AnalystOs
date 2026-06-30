@@ -919,7 +919,12 @@ function setupListeners() {
       if (!activePage) return;
 
       const pageName = document.getElementById('header-title-text').textContent;
-      if (confirm(`Do you want to reset all progress for ${pageName}?`)) {
+      
+      let warningText = `Do you want to reset all progress for ${pageName}?`;
+      if (activePage.id === 'page-learning') warningText = `WARNING: Are you sure you want to delete ALL your Daily Learning Logs? This cannot be undone.`;
+      if (activePage.id === 'page-company') warningText = `WARNING: Are you sure you want to delete ALL Target Companies from your CRM? This cannot be undone.`;
+
+      if (confirm(warningText)) {
         
         // 1. Handle pages with checkboxes
         const pageCheckboxes = activePage.querySelectorAll('input.custom-checkbox');
@@ -962,6 +967,19 @@ function setupListeners() {
             if (el.tagName === 'INPUT') el.value = '0';
             else el.value = '';
           });
+        }
+
+        // 4. Handle Learning Logs
+        if (activePage.id === 'page-learning') {
+          state.dailyLearning = [];
+          renderLearningLogs();
+        }
+
+        // 5. Handle Company CRM
+        if (activePage.id === 'page-company') {
+          state.companies = [];
+          renderCompanyCRM();
+          renderCompanyDashboardList();
         }
 
         saveState();
