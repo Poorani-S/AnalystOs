@@ -1,5 +1,7 @@
 // 90-Day Placement Prep Dashboard - Application State & Interaction Logic
 
+let currentEditIndex = null;
+
 // Default State Definition
 const DEFAULT_STATE = {
   theme: 'dark',
@@ -557,10 +559,10 @@ function renderLearningLogs() {
           document.getElementById('learn-source').value = entry.source || '';
           document.getElementById('learn-application').value = entry.application || '';
           
-          // Remove the old entry since we are editing it
-          state.dailyLearning.splice(idx, 1);
-          saveState();
-          renderLearningLogs();
+          currentEditIndex = idx;
+          
+          const submitBtn = document.querySelector('#add-learning-form button[type="submit"]');
+          if (submitBtn) submitBtn.textContent = '💾 Update Journal Entry';
           
           // Scroll to the form
           document.getElementById('add-learning-form').scrollIntoView({ behavior: 'smooth' });
@@ -832,16 +834,32 @@ function setupListeners() {
 
       if (!learning || !keyTakeaway) return;
 
-      const newEntry = {
-        date: new Date().toISOString().split('T')[0],
-        category,
-        learning,
-        keyTakeaway,
-        source,
-        application
-      };
+      if (currentEditIndex !== null) {
+        // Edit existing entry
+        state.dailyLearning[currentEditIndex] = {
+          ...state.dailyLearning[currentEditIndex],
+          category,
+          learning,
+          keyTakeaway,
+          source,
+          application
+        };
+        currentEditIndex = null;
+        const submitBtn = document.querySelector('#add-learning-form button[type="submit"]');
+        if (submitBtn) submitBtn.textContent = 'Save Journal Entry';
+      } else {
+        // Create new entry
+        const newEntry = {
+          date: new Date().toISOString().split('T')[0],
+          category,
+          learning,
+          keyTakeaway,
+          source,
+          application
+        };
+        state.dailyLearning.push(newEntry);
+      }
 
-      state.dailyLearning.push(newEntry);
       saveState();
       renderLearningLogs();
 
@@ -1014,6 +1032,9 @@ function setupListeners() {
         // 4. Handle Learning Logs
         if (activePage.id === 'page-learning') {
           state.dailyLearning = [];
+          currentEditIndex = null;
+          const submitBtn = document.querySelector('#add-learning-form button[type="submit"]');
+          if (submitBtn) submitBtn.textContent = 'Save Journal Entry';
           renderLearningLogs();
         }
 
