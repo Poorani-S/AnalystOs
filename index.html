@@ -1009,6 +1009,30 @@
               </ol>
             </div>
           </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: Difference between Python Lists vs Tuples vs Sets vs Dictionaries?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <ul>
+                <li><code>Lists:</code> Ordered, mutable, allows duplicates. <code>[1, 2, 3]</code></li>
+                <li><code>Tuples:</code> Ordered, immutable (cannot be changed), allows duplicates. Faster than lists. <code>(1, 2, 3)</code></li>
+                <li><code>Sets:</code> Unordered, mutable, unique elements only (no duplicates). <code>{1, 2, 3}</code></li>
+                <li><code>Dicts:</code> Unordered, mutable, key-value pairs (keys must be unique). <code>{'a': 1}</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: Explain Power BI DAX vs M Code. When do you use which?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <ul>
+                <li><code>M Code (Power Query):</code> Used during the Data Transformation phase (ETL). Best for cleaning data, renaming columns, merging tables, and changing data types before it loads into the model.</li>
+                <li><code>DAX (Data Analysis Expressions):</code> Used in the Data Modeling phase. Best for creating custom calculated columns, measures for aggregations, and advanced time-intelligence logic based on user filters.</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- HR Questions -->
@@ -1043,6 +1067,30 @@
               <br><strong>Task:</strong> Align team roles to complete project within 3 days.
               <br><strong>Action:</strong> Set up a logical project breakdown and compromise matrix based on members' skillsets.
               <br><strong>Result:</strong> Submitted project 1 day early, got positive feedback.</p>
+            </div>
+          </div>
+
+          <h3 style="font-family:var(--font-heading); margin-bottom: 12px; margin-top: 25px;">💼 Business Case & Guesstimates</h3>
+          
+          <div class="faq-item">
+            <div class="faq-header">Q: How would you estimate the number of smartphones sold in India per year?</div>
+            <div class="faq-body">
+              <strong>Structure (Guesstimate):</strong>
+              <ol>
+                <li><strong>Population:</strong> India has ~1.4 billion people.</li>
+                <li><strong>Segmentation (Urban vs Rural):</strong> Assume 35% Urban, 65% Rural.</li>
+                <li><strong>Income/Age Filtering:</strong> Exclude children under 12, extreme poverty. Brings target demographic down to ~800 million.</li>
+                <li><strong>Replacement Cycle:</strong> Assume people buy a new phone every 3 years. (800M / 3 = ~266 million phones/year).</li>
+                <li><strong>Sanity Check:</strong> Is 266M reasonable compared to actual reported data (~150M-200M)? Adjust assumptions slightly.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: A/B Testing - How do you know if a result is significant?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <p>You define a null hypothesis (e.g., 'the new button color has no effect on clicks'). You collect data from Group A (control) and Group B (variant). You calculate the p-value. If the p-value is less than your significance level (usually 0.05 or 5%), you reject the null hypothesis and conclude the result is statistically significant, meaning the button color likely caused the change in clicks, not random chance.</p>
             </div>
           </div>
         </div>
