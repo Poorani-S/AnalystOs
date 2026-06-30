@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poorani Placement Tracker Checkbox  | 90-Day Placement Prep Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Mobile Hamburger Menu Button -->
+  <button id="menu-toggle-btn" class="menu-toggle">☰ Menu</button>
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+    <div class="profile-card">
+      <div class="profile-info">
+        <span class="profile-avatar">👨‍💻</span>
+        <div>
+          <h2 class="profile-name">Poorani Placement Tracker Checkbox</h2>
+          <p class="profile-subtitle">Data & Business Analyst Prep</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-search">
+      <input type="text" id="sidebar-search-input" placeholder="Search page..." disabled value="🎯 90-Day Placement Prep">
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-title">Home & Stats</div>
+      <a class="nav-item active" data-target="home">🏠 Home Dashboard</a>
+      <a class="nav-item" data-target="progress">📊 Progress Dashboard</a>
+      <a class="nav-item" data-target="achievements">🏆 Achievement Board</a>
+      <a class="nav-item" data-target="habits">🔥 Habit Tracker</a>
+
+      <div class="nav-group-title">Routines & Planners</div>
+      <a class="nav-item" data-target="planner">📅 Daily Planner</a>
+      <a class="nav-item" data-target="emergency" style="color: var(--danger);">🚨 Emergency Mode</a>
+
+      <div class="nav-group-title">Tech Skill Trackers</div>
+      <a class="nav-item" data-target="sql">🗄 SQL Tracker</a>
+      <a class="nav-item" data-target="python">🐍 Python Tracker</a>
+      <a class="nav-item" data-target="excel">📈 Excel Tracker</a>
+      <a class="nav-item" data-target="powerbi">📊 Power BI Tracker</a>
+      <a class="nav-item" data-target="tableau">📉 Tableau Tracker</a>
+      <a class="nav-item" data-target="stats">📚 Statistics Tracker</a>
+
+      <div class="nav-group-title">General Trackers</div>
+      <a class="nav-item" data-target="ba">💼 Business Analyst Track</a>
+      <a class="nav-item" data-target="apt">🧠 Aptitude Tracker</a>
+      <a class="nav-item" data-target="resume">📄 Resume Tracker</a>
+      <a class="nav-item" data-target="projects">💻 Projects Tracker</a>
+
+      <div class="nav-group-title">Applications & Prep</div>
+      <a class="nav-item" data-target="company">🏢 Company Preparation</a>
+      <a class="nav-item" data-target="interview">🎤 Interview Preparation</a>
+
+      <div class="nav-group-title">Journal & Reviews</div>
+      <a class="nav-item" data-target="learning">📖 Learning Journal</a>
+      <a class="nav-item" data-target="weekly">📅 Weekly Review</a>
+      <a class="nav-item" data-target="monthly">📆 Monthly Review</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-widget">
+        <div class="flex-between">
+          <span>Overall Readiness</span>
+          <span id="sidebar-overall-progress-label" style="font-weight:700;">0% Completed</span>
+        </div>
+        <div class="footer-progress-bar">
+          <div id="global-progress-fill" class="footer-progress-fill"></div>
+        </div>
+      </div>
+      <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Theme">☀</button>
+    </div>
+  </aside>
+
+  <!-- MAIN VIEWPORT CONTENT -->
+  <main class="main-content">
+    
+    <!-- BANNER COVER -->
+    <div class="banner">
+      <div class="banner-overlay"></div>
+    </div>
+
+    <!-- MAIN PAGE HEADER -->
+    <header class="page-header">
+      <div class="page-icon" id="header-title-icon">🏠</div>
+      <div class="page-title-row">
+        <h1 class="page-title" id="header-title-text">Placement Dashboard</h1>
+        <div class="header-meta">
+          <div class="meta-pill accent">
+            <span>Streak:</span>
+            <span id="home-streak-count" style="margin-left:4px;">5 Days</span>
+            <button id="btn-inc-streak" style="background:none; border:none; color:var(--accent-hover); cursor:pointer; margin-left:6px; font-weight:700;" title="Log study to increase streak">+</button>
+          </div>
+          <div class="meta-pill">
+            <span>Target Day:</span>
+            <span style="color:var(--accent-hover); font-weight:700; margin-left:4px;">90-Day Prep</span>
+          </div>
+          <button id="btn-clear-daily" class="meta-pill" style="cursor:pointer; background-color:var(--danger-light); color:var(--danger); border-color:var(--danger);" title="Clear checklist checklist status for new day">
+            <span>Reset Planner</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- EMERGENCY ALERT BANNER (Shows only when emergency mode is active) -->
+    <div class="emergency-banner" id="emergency-banner-alert" style="display: none; margin: 0 40px 20px;">
+      <div class="emergency-title">
+        <span>🚨</span>
+        <div>
+          <strong>EMERGENCY REDUCED LOAD ACTIVE</strong>
+          <p style="font-size: 11px; font-weight: 400; color: var(--text-secondary);">Focus on maintaining the placement streak with only critical tasks.</p>
+        </div>
+      </div>
+      <a href="#planner" data-target="planner" class="notion-btn notion-btn-danger nav-item" style="padding: 6px 12px; font-size:11px; text-decoration:none;">Go to Planner</a>
+    </div>
+
+    <!-- ==================== 1. HOME DASHBOARD ==================== -->
+    <section class="page-view active" id="page-home">
+      
+      <!-- Welcome callout -->
+      <div class="callout">
+        <span class="callout-icon">✨</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Welcome to Placement Operating System!</h4>
+          <p>This is your centralized command center for the next <strong>90 Days</strong>. Target goals: <strong>Data Analyst</strong> & <strong>Business Analyst</strong> placements. Daily study schedule triggers exactly at <strong>5:00 PM</strong>. Stay disciplined!</p>
+          <p style="margin-top:8px; font-size:13px; color:var(--accent-hover); font-weight:600;" id="current-date-display"></p>
+        </div>
+      </div>
+
+      <div class="grid-sidebar-layout">
+        <!-- Left Main Panel -->
+        <div>
+          <!-- Quick Navigation Panel -->
+          <h3 style="font-family:var(--font-heading); margin-bottom:12px;">🧭 Quick Navigation</h3>
+          <div class="quick-nav-grid">
+            <a href="#planner" class="quick-nav-btn" data-target="planner">
+              <span class="quick-nav-icon">📅</span>
+              <span class="quick-nav-label">Daily Planner</span>
+            </a>
+            <a href="#habits" class="quick-nav-btn" data-target="habits">
+              <span class="quick-nav-icon">🔥</span>
+              <span class="quick-nav-label">Habit Tracker</span>
+            </a>
+            <a href="#sql" class="quick-nav-btn" data-target="sql">
+              <span class="quick-nav-icon">🗄</span>
+              <span class="quick-nav-label">SQL Tracker</span>
+            </a>
+            <a href="#python" class="quick-nav-btn" data-target="python">
+              <span class="quick-nav-icon">🐍</span>
+              <span class="quick-nav-label">Python Tracker</span>
+            </a>
+            <a href="#excel" class="quick-nav-btn" data-target="excel">
+              <span class="quick-nav-icon">📈</span>
+              <span class="quick-nav-label">Excel Tracker</span>
+            </a>
+            <a href="#powerbi" class="quick-nav-btn" data-target="powerbi">
+              <span class="quick-nav-icon">📊</span>
+              <span class="quick-nav-label">Power BI</span>
+            </a>
+            <a href="#company" class="quick-nav-btn" data-target="company">
+              <span class="quick-nav-icon">🏢</span>
+              <span class="quick-nav-label">Company Board</span>
+            </a>
+            <a href="#learning" class="quick-nav-btn" data-target="learning">
+              <span class="quick-nav-icon">📖</span>
+              <span class="quick-nav-label">Learning Journal</span>
+            </a>
+          </div>
+
+          <!-- Overall Prep Goals & Focus -->
+          <div class="premium-card" style="margin-bottom: 20px;">
+            <h3 class="card-title">🎯 90-Day Placement Objectives</h3>
+            <div class="grid-2">
+              <div>
+                <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">PLACEMENT TARGETS</h4>
+                <div class="flex-align-center" style="margin-bottom:6px;"><span style="color:var(--success);">✔</span> <strong>Data Analyst Roles</strong> (SQL, Python, Excel, BI tools, Stats)</div>
+                <div class="flex-align-center"><span style="color:var(--success);">✔</span> <strong>Business Analyst Roles</strong> (Agile, BRD/FRD, UML, Cases)</div>
+              </div>
+              <div>
+                <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">DAILY SYSTEM TARGETS</h4>
+                <div class="flex-align-center">🌅 Wake Up: <strong>6:00 AM</strong></div>
+                <div class="flex-align-center">💪 Morning Exercise: <strong>30 Minutes</strong></div>
+                <div class="flex-align-center">🕔 Study Block Start: <strong>5:00 PM Sharp</strong></div>
+                <div class="flex-align-center">🌙 Sleep Time: <strong>Before 11:00 PM</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dream Companies Application list -->
+          <div class="premium-card">
+            <h3 class="card-title">🏢 Active Dream Companies Applications</h3>
+            <div class="dream-company-list" id="home-dream-companies">
+              <!-- Rendered via JS -->
+            </div>
+            <div style="margin-top:15px; text-align:right;">
+              <a href="#company" data-target="company" class="nav-item" style="font-size:12px; color:var(--accent-hover); display:inline-block; font-weight:600; text-decoration:none;">Go to Company Tracker →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar Panel -->
+        <div>
+          <!-- Overall Progress Card -->
+          <div class="premium-card" style="margin-bottom:20px; background: radial-gradient(circle at top right, var(--accent-light), var(--bg-card) 60%);">
+            <h3 class="card-title">📊 Placement Readiness</h3>
+            
+            <!-- 90-Day Countdown -->
+            <div style="display:flex; gap:12px; margin-bottom:15px;">
+              <div style="flex:1; text-align:center; padding:10px; background:var(--bg-main); border-radius:var(--border-radius); border:1px solid var(--border-color);">
+                <div style="font-size:28px; font-weight:800; font-family:var(--font-heading); color:var(--accent);" id="days-remaining-count">90</div>
+                <div style="font-size:10px; font-weight:600; color:var(--text-secondary); text-transform:uppercase;">Days Left</div>
+              </div>
+              <div style="flex:1; text-align:center; padding:10px; background:var(--bg-main); border-radius:var(--border-radius); border:1px solid var(--border-color);">
+                <div style="font-size:14px; font-weight:700; font-family:var(--font-heading); color:var(--text-primary); margin-top:6px;" id="days-passed-count">Day 1 of 90</div>
+                <div style="font-size:10px; font-weight:600; color:var(--text-secondary); text-transform:uppercase;">Current Day</div>
+              </div>
+            </div>
+
+            <div class="progress-container">
+              <div class="progress-label-row">
+                <span>Total Completion</span>
+                <span id="home-overall-progress-label">0% Completed</span>
+              </div>
+              <div class="progress-bar-bg" style="height: 12px; border-radius: 6px;">
+                <div id="home-overall-progress-fill" class="progress-bar-fill success" style="width:0%"></div>
+              </div>
+            </div>
+            
+            <div class="tracker-subtopics-list" style="font-size:12px; gap:6px;">
+              <div class="flex-between"><span>🗄 SQL Track</span><span id="home-sql-progress-label">0%</span></div>
+              <div class="progress-bar-bg"><div id="home-sql-progress-fill" class="progress-bar-fill" style="width: 0%;"></div></div>
+              
+              <div class="flex-between"><span>🐍 Python Track</span><span id="home-python-progress-label">0%</span></div>
+              <div class="progress-bar-bg"><div id="home-python-progress-fill" class="progress-bar-fill" style="width: 0%;"></div></div>
+              
+              <div class="flex-between"><span>📊 Power BI</span><span id="home-powerbi-progress-label">0%</span></div>
+              <div class="progress-bar-bg"><div id="home-powerbi-progress-fill" class="progress-bar-fill" style="width: 0%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Recent Learning Card -->
+          <div class="premium-card" style="margin-bottom: 20px;">
+            <h3 class="card-title">💡 Today's Learning Takeaway</h3>
+            <div id="home-recent-learning" style="font-size: 13px; line-height: 1.4; color: var(--text-primary);">
+              No learning logged for today. Finish evening study and log it!
+            </div>
+          </div>
+
+          <!-- Motivational Quote Card -->
+          <div class="premium-card" style="border-left: 4px solid var(--warning);">
+            <h3 class="card-title" style="margin-bottom:6px;">💡 Daily Quote</h3>
+            <p id="motivational-quote-text" style="font-style:italic; font-size:12px; line-height:1.4; color:var(--text-secondary);">"The best way to predict the future is to create it."</p>
+            <p id="motivational-quote-author" style="font-size:11px; color:var(--accent); margin-top:6px; font-weight:600;">— Peter Drucker</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick progress grid list -->
+      <h3 style="font-family:var(--font-heading); margin-bottom:12px; margin-top:20px;">📂 Technical Skill Modules</h3>
+      <div class="grid-4">
+        <div class="premium-card">
+          <div style="font-size:24px; margin-bottom:8px;">🗄</div>
+          <div style="font-weight:700; font-size:14px; margin-bottom:4px;">SQL Tracker</div>
+          <div id="home-sql-p-label" style="font-size:11px; color:var(--text-secondary); margin-bottom:10px;">Select, Joins, Window Functions</div>
+          <a href="#sql" data-target="sql" class="nav-item" style="font-size:12px; color:var(--accent-hover); font-weight:600; text-decoration:none; padding:0;">Explore Tracker →</a>
+        </div>
+        <div class="premium-card">
+          <div style="font-size:24px; margin-bottom:8px;">🐍</div>
+          <div style="font-weight:700; font-size:14px; margin-bottom:4px;">Python Tracker</div>
+          <div style="font-size:11px; color:var(--text-secondary); margin-bottom:10px;">Loops, Pandas, NumPy, Matplotlib</div>
+          <a href="#python" data-target="python" class="nav-item" style="font-size:12px; color:var(--accent-hover); font-weight:600; text-decoration:none; padding:0;">Explore Tracker →</a>
+        </div>
+        <div class="premium-card">
+          <div style="font-size:24px; margin-bottom:8px;">📈</div>
+          <div style="font-weight:700; font-size:14px; margin-bottom:4px;">Excel Tracker</div>
+          <div style="font-size:11px; color:var(--text-secondary); margin-bottom:10px;">VLOOKUP, Pivot, Power Query</div>
+          <a href="#excel" data-target="excel" class="nav-item" style="font-size:12px; color:var(--accent-hover); font-weight:600; text-decoration:none; padding:0;">Explore Tracker →</a>
+        </div>
+        <div class="premium-card">
+          <div style="font-size:24px; margin-bottom:8px;">📊</div>
+          <div style="font-weight:700; font-size:14px; margin-bottom:4px;">BI Tools Trackers</div>
+          <div style="font-size:11px; color:var(--text-secondary); margin-bottom:10px;">Power BI & Tableau Dashboarding</div>
+          <a href="#powerbi" data-target="powerbi" class="nav-item" style="font-size:12px; color:var(--accent-hover); font-weight:600; text-decoration:none; padding:0;">Explore BI Trackers →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 2. DAILY PLANNER ==================== -->
+    <section class="page-view" id="page-planner">
+      <div class="callout callout-warning">
+        <span class="callout-icon">🕔</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Daily Placement Time-Block Routine</h4>
+          <p>College occupies the morning and afternoon. Study block triggers strictly at <strong>5:00 PM</strong>. Fill this checklist daily to maintain your streak.</p>
+        </div>
+      </div>
+
+      <div class="grid-sidebar-layout">
+        <!-- Study Checklists & Blocks -->
+        <div>
+          <!-- Morning Routine -->
+          <div class="premium-card routine-block-non-em" style="margin-bottom:20px;">
+            <h3 class="card-title">🌅 Morning Routine (6:00 AM - 9:00 AM)</h3>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-wake" data-type="checklist"><label class="checklist-label" for="morning-wake">Wake up at 6:00 AM</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-water" data-type="checklist"><label class="checklist-label" for="morning-water">Drink Water (Hydrate)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-exercise" data-type="checklist"><label class="checklist-label" for="morning-exercise">Exercise (30 Minutes morning workout)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-freshen" data-type="checklist"><label class="checklist-label" for="morning-freshen">Freshen Up & Get Ready</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-breakfast" data-type="checklist"><label class="checklist-label" for="morning-breakfast">Eat a Healthy Breakfast</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-goals" data-type="checklist"><label class="checklist-label" for="morning-goals">Review today's study goals</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="morning-leave" data-type="checklist"><label class="checklist-label" for="morning-leave">Leave for College</label></div>
+          </div>
+
+          <!-- College Checklist -->
+          <div class="premium-card routine-block-non-em" style="margin-bottom:20px;">
+            <h3 class="card-title">🏫 College Checklist (9:00 AM - 4:30 PM)</h3>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="college-attend" data-type="checklist"><label class="checklist-label" for="college-attend">Attend Classes</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="college-notes" data-type="checklist"><label class="checklist-label" for="college-notes">Take structured notes</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="college-doubts" data-type="checklist"><label class="checklist-label" for="college-doubts">Ask doubts to professors</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="college-revise" data-type="checklist"><label class="checklist-label" for="college-revise">Revise quick concepts during lunch breaks</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="college-social" data-type="checklist"><label class="checklist-label" for="college-social">Avoid Social Media scrolling during breaks</label></div>
+          </div>
+
+          <!-- Evening Study Blocks (Non-Emergency only) -->
+          <div class="routine-block-non-em">
+            <h3 style="font-family:var(--font-heading); margin-bottom:15px; margin-top:20px;">🕔 Evening Study Schedule (Starts 5:00 PM)</h3>
+
+            <!-- 5:00 PM - 6:00 PM SQL -->
+            <div class="timeblock">
+              <div class="timeblock-header">🕔 5:00 PM – 6:00 PM</div>
+              <span class="timeblock-name">SQL core learning & querying practice</span>
+              <div class="tracker-subtopics-list" style="margin-top:10px;">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-sql-learn" data-type="checklist"><label class="checklist-label" for="study-sql-learn">Learn SQL syntax (subqueries, window functions)</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-sql-queries" data-type="checklist"><label class="checklist-label" for="study-sql-queries">Practice SQL Queries (LeetCode, HackerRank)</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-sql-revise" data-type="checklist"><label class="checklist-label" for="study-sql-revise">Revise yesterday's queries</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-sql-notes" data-type="checklist"><label class="checklist-label" for="study-sql-notes">Write down shortcut keys and complex SQL notes</label></div>
+              </div>
+            </div>
+
+            <!-- 6:00 PM - 7:00 PM Python -->
+            <div class="timeblock">
+              <div class="timeblock-header">🕔 6:00 PM – 7:00 PM</div>
+              <span class="timeblock-name">Python logic, Pandas, and NumPy</span>
+              <div class="tracker-subtopics-list" style="margin-top:10px;">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-py-var" data-type="checklist"><label class="checklist-label" for="study-py-var">Learn Python core concepts (loops, functions)</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-py-pandas" data-type="checklist"><label class="checklist-label" for="study-py-pandas">Pandas practice (data cleaning, grouping)</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-py-numpy" data-type="checklist"><label class="checklist-label" for="study-py-numpy">NumPy array operations</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-py-practice" data-type="checklist"><label class="checklist-label" for="study-py-practice">Write & run at least 3 Python script solutions</label></div>
+              </div>
+            </div>
+
+            <!-- 7:00 PM - 7:30 PM Dinner -->
+            <div class="timeblock" style="border-left-color: var(--warning);">
+              <div class="timeblock-header" style="color: var(--warning);">🕔 7:00 PM – 7:30 PM</div>
+              <span class="timeblock-name">🍱 Dinner & Relax break</span>
+            </div>
+
+            <!-- 7:30 PM - 8:30 PM Analytics Tools -->
+            <div class="timeblock">
+              <div class="timeblock-header">🕔 7:30 PM – 8:30 PM</div>
+              <span class="timeblock-name">Analytics Tools (Excel / BI Tools Rotation)</span>
+              <div class="callout" style="padding:10px; margin-top:8px; margin-bottom:8px; font-size:12px;">
+                📅 <strong>Rotation Guide:</strong> Mon/Thu: Excel | Tue/Fri: Power BI | Wed/Sat: Tableau | Sun: Full Dashboard Practice
+              </div>
+              <div class="tracker-subtopics-list">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-tool-learn" data-type="checklist"><label class="checklist-label" for="study-tool-learn">Learn tool techniques (DAX, XLOOKUP, Filters)</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-tool-practice" data-type="checklist"><label class="checklist-label" for="study-tool-practice">Practice using tool files and datasets</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-tool-dashboard" data-type="checklist"><label class="checklist-label" for="study-tool-dashboard">Work on Mini Dashboard/Project mockups</label></div>
+              </div>
+            </div>
+
+            <!-- 8:30 PM - 9:15 PM Aptitude -->
+            <div class="timeblock">
+              <div class="timeblock-header">🕔 8:30 PM – 9:15 PM</div>
+              <span class="timeblock-name">Aptitude Training (Quant, Logical, Verbal)</span>
+              <div class="tracker-subtopics-list">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-apt-quant" data-type="checklist"><label class="checklist-label" for="study-apt-quant">Practice Quantitative Problems</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-apt-logical" data-type="checklist"><label class="checklist-label" for="study-apt-logical">Solve Logical Reasoning Puzzles</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-apt-verbal" data-type="checklist"><label class="checklist-label" for="study-apt-verbal">Verbal Ability & Grammar drills</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-apt-mistakes" data-type="checklist"><label class="checklist-label" for="study-apt-mistakes">Analyze test mistakes and log incorrect answers</label></div>
+              </div>
+            </div>
+
+            <!-- 9:15 PM - 10:00 PM Placement Prep -->
+            <div class="timeblock">
+              <div class="timeblock-header">🕔 9:15 PM – 10:00 PM</div>
+              <span class="timeblock-name">Placement & Career Preparation</span>
+              <div class="callout" style="padding:10px; margin-top:8px; margin-bottom:8px; font-size:12px;">
+                📂 <strong>Prep Rotation:</strong> Mon: Resume | Tue: Mock Interview | Wed: HR Prep | Thu: Company Research | Fri: BA Cases | Sat: Portfolio | Sun: Revision
+              </div>
+              <div class="tracker-subtopics-list">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-mon" data-type="checklist"><label class="checklist-label" for="study-place-mon">Mon: Align Resume to Job Description</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-tue" data-type="checklist"><label class="checklist-label" for="study-place-tue">Tue: Mock Interview rehearsal</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-wed" data-type="checklist"><label class="checklist-label" for="study-place-wed">Wed: Draft answers to HR FAQs</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-thu" data-type="checklist"><label class="checklist-label" for="study-place-thu">Thu: Target Company deep-dive research</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-fri" data-type="checklist"><label class="checklist-label" for="study-place-fri">Fri: Solve Business Case Study / Guesstimates</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-sat" data-type="checklist"><label class="checklist-label" for="study-place-sat">Sat: Write GitHub/LinkedIn post for portfolio project</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-place-sun" data-type="checklist"><label class="checklist-label" for="study-place-sun">Sun: Full Weekly syllabus revision</label></div>
+              </div>
+            </div>
+
+            <!-- 10:00 PM - 10:20 PM Daily New Learning -->
+            <div class="timeblock" style="border-left-color: var(--success);">
+              <div class="timeblock-header" style="color: var(--success);">🕔 10:00 PM – 10:20 PM</div>
+              <span class="timeblock-name">Daily New Learning Capture</span>
+              <div class="tracker-subtopics-list" style="margin-top:10px;">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-learn-one" data-type="checklist"><label class="checklist-label" for="study-learn-one">Learn and document One New Thing (Mandatory)</label></div>
+              </div>
+              <a href="#learning" data-target="learning" class="nav-item" style="font-size:12px; color:var(--accent-hover); display:inline-block; font-weight:600; text-decoration:none; padding: 5px 0;">Go to Learning Journal to Log →</a>
+            </div>
+
+            <!-- 10:20 PM - 10:40 PM Revision -->
+            <div class="timeblock">
+              <div class="timeblock-header">🕔 10:20 PM – 10:40 PM</div>
+              <span class="timeblock-name">Night revision of today's concepts</span>
+              <div class="tracker-subtopics-list">
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-rev-sql" data-type="checklist"><label class="checklist-label" for="study-rev-sql">Revise SQL queries written today</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-rev-py" data-type="checklist"><label class="checklist-label" for="study-rev-py">Review Python scripts</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-rev-tool" data-type="checklist"><label class="checklist-label" for="study-rev-tool">Review Excel formulas / Power BI dashboard layout</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-rev-apt" data-type="checklist"><label class="checklist-label" for="study-rev-apt">Revise Aptitude formulas</label></div>
+                <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="study-rev-notes" data-type="checklist"><label class="checklist-label" for="study-rev-notes">Review custom handbook notes</label></div>
+              </div>
+            </div>
+
+            <!-- 10:40 PM - 11:00 PM Night Routine -->
+            <div class="premium-card" style="margin-top:20px;">
+              <h3 class="card-title">🌙 Shut Down & Sleep (10:40 PM – 11:00 PM)</h3>
+              <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="night-update" data-type="checklist"><label class="checklist-label" for="night-update">Update Placement Dashboard checklists</label></div>
+              <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="night-tasks" data-type="checklist"><label class="checklist-label" for="night-tasks">Tick off all completed daily tasks</label></div>
+              <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="night-tomorrow" data-type="checklist"><label class="checklist-label" for="night-tomorrow">Outline tomorrow's topics</label></div>
+              <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="night-phone" data-type="checklist"><label class="checklist-label" for="night-phone">No phone usage in bed before sleeping</label></div>
+              <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="night-sleep" data-type="checklist"><label class="checklist-label" for="night-sleep">Sleep before 11:00 PM</label></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Emergency Sidebar Content -->
+        <div>
+          <!-- Emergency Toggle Panel -->
+          <div class="premium-card" style="border: 2px solid var(--danger); background-color: rgba(231,76,60,0.05); margin-bottom: 20px;">
+            <h3 class="card-title" style="color: var(--danger);">🚨 Emergency Toggle</h3>
+            <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">Having an extremely busy day or exams? Toggle Emergency Mode to focus only on critical targets and keep your streak alive.</p>
+            <div class="flex-align-center" style="gap:10px;">
+              <input type="checkbox" id="emergency-mode-toggle" class="custom-checkbox" style="border-color:var(--danger); transform:scale(1.2);">
+              <label for="emergency-mode-toggle" style="font-weight:700; color:var(--danger); cursor:pointer; font-size:13px;">Enable Emergency Mode</label>
+            </div>
+          </div>
+
+          <!-- Emergency Mode Planner List -->
+          <div class="premium-card" style="border-left: 4px solid var(--danger);">
+            <h3 class="card-title" style="color: var(--danger);">🔥 Critical Minimums</h3>
+            <p style="font-size:11px; color:var(--text-secondary); margin-bottom:12px;">Complete these 5 tasks to maintain your placement preparation momentum.</p>
+            
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-sql" data-type="checklist"><label class="checklist-label" for="em-sql">Solve 1 SQL Problem</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-python" data-type="checklist"><label class="checklist-label" for="em-python">Code 15 mins Python</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-aptitude" data-type="checklist"><label class="checklist-label" for="em-aptitude">15 Minutes Aptitude Prep</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-learning" data-type="checklist"><label class="checklist-label" for="em-learning">Learn One New Thing today</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-dashboard" data-type="checklist"><label class="checklist-label" for="em-dashboard">Update Dashboard state</label></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. HABIT TRACKER ==================== -->
+    <section class="page-view" id="page-habits">
+      <div class="callout callout-success">
+        <span class="callout-icon">🔥</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Interactive Placement Habits Tracker</h4>
+          <p>Habits shape consistency. Toggle completion for each day of the week. Aim for all green ticks weekly!</p>
+        </div>
+      </div>
+
+      <div class="premium-card">
+        <h3 class="card-title">📅 Weekly Habit Matrix</h3>
+        <div class="habit-tracker-grid" id="habit-tracker-rows">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. PROGRESS DASHBOARD ==================== -->
+    <section class="page-view" id="page-progress">
+      <div class="premium-card" style="margin-bottom: 25px; background: linear-gradient(135deg, var(--bg-card), var(--accent-light));">
+        <h3 class="card-title">📈 Overall placement syllabus progress</h3>
+        <div class="progress-container">
+          <div class="progress-label-row">
+            <span>Placement Syllabus readiness</span>
+            <span id="overall-readiness-label" style="font-weight:700;">Calculating...</span>
+          </div>
+          <div class="progress-bar-bg" style="height:16px; border-radius:8px;">
+            <div id="overall-progress-fill" class="progress-bar-fill success" style="width:0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="premium-card">
+          <h3 class="card-title">🗄 SQL Track</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="sql-progress-label">0/15 Topics</span></div>
+            <div class="progress-bar-bg"><div id="sql-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">🐍 Python Track</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="python-progress-label">0/15 Topics</span></div>
+            <div class="progress-bar-bg"><div id="python-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">📈 Excel Track</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="excel-progress-label">0/11 Topics</span></div>
+            <div class="progress-bar-bg"><div id="excel-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">📊 Power BI</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="powerbi-progress-label">0/7 Topics</span></div>
+            <div class="progress-bar-bg"><div id="powerbi-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">📉 Tableau</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="tableau-progress-label">0/6 Topics</span></div>
+            <div class="progress-bar-bg"><div id="tableau-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">📚 Statistics</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="stats-progress-label">0/9 Topics</span></div>
+            <div class="progress-bar-bg"><div id="stats-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">💼 Business Analysis</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="ba-progress-label">0/12 Topics</span></div>
+            <div class="progress-bar-bg"><div id="ba-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+
+        <div class="premium-card">
+          <h3 class="card-title">🧠 Aptitude</h3>
+          <div class="progress-container">
+            <div class="progress-label-row"><span id="apt-progress-label">0/3 Topics</span></div>
+            <div class="progress-bar-bg"><div id="apt-progress-fill" class="progress-bar-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. SQL TRACKER ==================== -->
+    <section class="page-view" id="page-sql">
+      <div class="premium-card">
+        <h3 class="card-title">🗄 Structured Query Language (SQL) Syllabus</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">CORE CONCEPTS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-basics" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-basics">SQL Basics (SELECT, FROM, DISTINCT)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-select" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-select">Filtering Rows (WHERE Clause, Operators)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-where" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-where">Sorting Data (ORDER BY, LIMIT)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-orderby" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-orderby">GROUP BY (Aggregating columns)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-groupby" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-groupby">HAVING Clause (Filter aggregated rows)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-having" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-having">Aggregate Functions (SUM, AVG, MIN/MAX)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-agg" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-agg">SQL Joins (INNER, LEFT, RIGHT, FULL, SELF)</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">ADVANCED TOPICS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-joins" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-joins">Subqueries & Nested Queries</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-subq" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-subq">Views (Virtual Tables creation)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-views" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-views">CTEs (Common Table Expressions)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-cte" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-cte">Window Functions (RANK, DENSE_RANK, LEAD)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-window" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-window">Stored Procedures & Variables</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-sp" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-sp">Stored Procedures executing</label></div>
+            
+            <h4 style="font-size:13px; color:var(--text-secondary); margin: 15px 0 10px;">PRACTICE & REVIEW</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-p1" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-p1">100+ Practice Queries Completed</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-sql-rev" data-type="tracker-checkbox"><label class="checklist-label" for="track-sql-rev">Syllabus revision checklist</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 SQL Tracker Notebook & Insights</label>
+          <textarea id="note-sql" class="notion-textarea tracker-notes-field" placeholder="Write SQL syntax shortcuts, cheat sheets, or interview query notes here..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. PYTHON TRACKER ==================== -->
+    <section class="page-view" id="page-python">
+      <div class="premium-card">
+        <h3 class="card-title">🐍 Python for Data Analysis Syllabus</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">CORE PYTHON</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-var" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-var">Variables, Types & Operators</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-loops" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-loops">Control Flow & Loops (for, while, if)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-func" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-func">Functions (*args, **kwargs, lambda)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-lists" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-lists">List Collections & Comprehensions</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-tuples" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-tuples">Tuples & Immutable collection usage</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-dict" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-dict">Dictionaries & Key-Value structures</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-sets" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-sets">Sets collections & operations</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-oop" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-oop">Object-Oriented Programming (OOP) Classes</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">DATA ANALYTICS STACK</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-file" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-file">File Handling (Read/Write CSV/JSON)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-ex" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-ex">Exception Handling (try-except blocks)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-numpy" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-numpy">NumPy library arrays operations</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-pandas" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-pandas">Pandas Dataframes & Series manipulation</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-matplotlib" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-matplotlib">Matplotlib & Seaborn visualization</label></div>
+            
+            <h4 style="font-size:13px; color:var(--text-secondary); margin: 15px 0 10px;">PRACTICE & CODE</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-p1" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-p1">Solve algorithm challenges</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-py-projects" data-type="tracker-checkbox"><label class="checklist-label" for="track-py-projects">Mini analytics projects (Pandas pipeline)</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 Python Tracker Notebook & Insights</label>
+          <textarea id="note-python" class="notion-textarea tracker-notes-field" placeholder="Write Pandas filters, numpy functions, lambda templates..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 7. EXCEL TRACKER ==================== -->
+    <section class="page-view" id="page-excel">
+      <div class="premium-card">
+        <h3 class="card-title">📈 Excel Analytics Master Class Syllabus</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">FORMULAS & CALCS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-basics" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-basics">Basic formulas (SUM, AVERAGE, COUNT, basic referencing)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-if" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-if">IF logical queries</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-ifs" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-ifs">IFS multiple checks logic</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-vlookup" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-vlookup">VLOOKUP exact & approximate matching</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-xlookup" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-xlookup">XLOOKUP directional search</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-index" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-index">INDEX MATCH indexing search</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">BUSINESS REPORTS & QUERY</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-pivot" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-pivot">Pivot Tables (Group, summarize, calculations)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-charts" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-charts">Charts selection & Formatting</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-cond" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-cond">Conditional Formatting (Rules, styling)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-power" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-power">Power Query connection & cleaning</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ex-dash" data-type="tracker-checkbox"><label class="checklist-label" for="track-ex-dash">Dashboard generation (Pivot charts, slicers)</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 Excel Analytics Notes</label>
+          <textarea id="note-excel" class="notion-textarea tracker-notes-field" placeholder="VLOOKUP limitations, INDEX MATCH formats, conditional styling tricks..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 8. POWER BI TRACKER ==================== -->
+    <section class="page-view" id="page-powerbi">
+      <div class="premium-card">
+        <h3 class="card-title">📊 Power BI Desktop Tracker</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">DATA PREP & SCHEMA</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-clean" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-clean">Power Query Data Cleaning (Types, merges, splits)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-rel" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-rel">Data Model Relationships (Star Schema, cardinalities)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-dax" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-dax">DAX Basics (Calculated columns)</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">MEASURES & DASHBOARD</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-meas" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-meas">DAX Measures (CALCULATE, RELATED, DIVIDE)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-vis" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-vis">Report Visualizations (KPI Cards, bar charts, maps)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-dash" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-dash">Dashboard Layout & formatting aesthetics</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-pbi-pub" data-type="tracker-checkbox"><label class="checklist-label" for="track-pbi-pub">Publishing report files to Power BI Service</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 Power BI & DAX Notes</label>
+          <textarea id="note-powerbi" class="notion-textarea tracker-notes-field" placeholder="DAX CALCULATE filters, context transition, card parameters..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 9. TABLEAU TRACKER ==================== -->
+    <section class="page-view" id="page-tableau">
+      <div class="premium-card">
+        <h3 class="card-title">📉 Tableau Desktop Tracker</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">VISUAL SHEETS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-tab-charts" data-type="tracker-checkbox"><label class="checklist-label" for="track-tab-charts">Basic Charts (Bar, line, scatter, map plots)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-tab-filters" data-type="tracker-checkbox"><label class="checklist-label" for="track-tab-filters">Filters (Context, dimension, measure filters)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-tab-calc" data-type="tracker-checkbox"><label class="checklist-label" for="track-tab-calc">Calculated Fields & String manipulations</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">INTERACTIVE ACTIONS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-tab-param" data-type="tracker-checkbox"><label class="checklist-label" for="track-tab-param">Parameters creation & dynamic views</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-tab-dash" data-type="tracker-checkbox"><label class="checklist-label" for="track-tab-dash">Dashboard actions & interactive formatting</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-tab-story" data-type="tracker-checkbox"><label class="checklist-label" for="track-tab-story">Tableau Storybook generation</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 Tableau Operations Notes</label>
+          <textarea id="note-tableau" class="notion-textarea tracker-notes-field" placeholder="Parameters, Level of Detail (LOD) syntax notes..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 10. STATISTICS TRACKER ==================== -->
+    <section class="page-view" id="page-stats">
+      <div class="premium-card">
+        <h3 class="card-title">📚 Statistics & Probability Syllabus</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">DESCRIPTIVE STATS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-mean" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-mean">Mean calculation and usage</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-median" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-median">Median (skewed distributions)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-mode" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-mode">Mode (categorical frequency)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-var" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-var">Variance (spread of values)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-sd" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-sd">Standard Deviation (sigma spread)</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">INFERENTIAL STATS & TEST</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-corr" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-corr">Correlation (Pearson, Spearman coefficients)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-reg" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-reg">Linear Regression models</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-prob" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-prob">Probability rules (Bayes Theorem, normal distribution)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-stat-hyp" data-type="tracker-checkbox"><label class="checklist-label" for="track-stat-hyp">Hypothesis Testing (p-value, Z-test, T-test, A/B checks)</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 Stats Formulas & Notebook</label>
+          <textarea id="note-stats" class="notion-textarea tracker-notes-field" placeholder="P-value definition, Central Limit Theorem parameters, regression models..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 11. BUSINESS ANALYST TRACKER ==================== -->
+    <section class="page-view" id="page-ba">
+      <div class="premium-card">
+        <h3 class="card-title">💼 Business Analyst Track Syllabus</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">DOCUMENTS & SCOPE</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-req" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-req">Requirement Gathering techniques</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-stake" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-stake">Stakeholder Analysis matrices</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-proc" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-proc">Business Process Mapping (As-Is / To-Be)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-agile" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-agile">Agile Development concepts</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-scrum" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-scrum">Scrum Framework roles (Product Owner, Master)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-stories" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-stories">User Stories creation (As a... I want... So that...)</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">FRAMEWORKS & DIAGRAMS</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-brd" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-brd">BRD (Business Requirement Document) outline</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-frd" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-frd">FRD (Functional Requirement Document) outline</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-swot" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-swot">SWOT & PESTLE frameworks</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-bpmn" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-bpmn">BPMN standard shapes and processes</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-uml" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-uml">UML diagrams (Use Case, Sequence plots)</label></div>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-ba-case" data-type="tracker-checkbox"><label class="checklist-label" for="track-ba-case">Business Case Studies & Guesstimates</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 BA Methods & Review Notes</label>
+          <textarea id="note-ba" class="notion-textarea tracker-notes-field" placeholder="Agile metrics, BRD template formats, guesstimate structure checklist..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 12. APTITUDE TRACKER ==================== -->
+    <section class="page-view" id="page-apt">
+      <div class="premium-card">
+        <h3 class="card-title">🧠 Placement Aptitude Syllabus</h3>
+        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:15px;">Check off when you are fully comfortable solving intermediate/advanced mock tests in these areas.</p>
+        <div class="grid-3">
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">🔢 QUANTITATIVE</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-apt-quant" data-type="tracker-checkbox"><label class="checklist-label" for="track-apt-quant">Quant (Time-Work, Speed-Dist, Percentages, Profit-Loss, Averages)</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">🧩 LOGICAL</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-apt-logical" data-type="tracker-checkbox"><label class="checklist-label" for="track-apt-logical">Logical Reasoning (Syllogisms, Blood Relations, Seating, Coding-Decoding)</label></div>
+          </div>
+          <div>
+            <h4 style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;">🔤 VERBAL</h4>
+            <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="track-apt-verbal" data-type="tracker-checkbox"><label class="checklist-label" for="track-apt-verbal">Verbal Ability (Reading Comprehension, Synonyms, Grammar Corrections)</label></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <label style="font-size:13px; font-weight:600; color:var(--text-secondary);">📝 Formula Handbook & Aptitude Shortcuts</label>
+          <textarea id="note-apt" class="notion-textarea tracker-notes-field" placeholder="Speed formulas, work rates ratios, syllogism Venn patterns..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 13. RESUME TRACKER ==================== -->
+    <section class="page-view" id="page-resume">
+      <div class="callout callout-success">
+        <span class="callout-icon">📄</span>
+        <div class="callout-content">
+          <h4 class="callout-title">ATS Resume Checklist</h4>
+          <p>Optimize your resume using single-column layout, action verbs, and metric-focused bullet points (XYZ formula: "Accomplished [X] as measured by [Y], by doing [Z]").</p>
+        </div>
+      </div>
+
+      <div class="grid-sidebar-layout">
+        <div class="premium-card">
+          <h3 class="card-title">📝 ATS Optimization Tasks</h3>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-ats" data-type="resume-checkbox"><label class="checklist-label" for="resume-ats">Resume passes ATS scanners (Single column, standard font, PDF)</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-projects" data-type="resume-checkbox"><label class="checklist-label" for="resume-projects">Projects include quantitative metrics (e.g., "improved query speed by 40%")</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-skills" data-type="resume-checkbox"><label class="checklist-label" for="resume-skills">Core Technical skills keywords highlighted (SQL, Python, DAX, Excel)</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-certs" data-type="resume-checkbox"><label class="checklist-label" for="resume-certs">Professional certifications linked (Coursera, Udemy, etc.)</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-achieve" data-type="resume-checkbox"><label class="checklist-label" for="resume-achieve">Achievements highlighted clearly (hackathons, competitions)</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-github" data-type="resume-checkbox"><label class="checklist-label" for="resume-github">GitHub Profile link added and cleaned up</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-linkedin" data-type="resume-checkbox"><label class="checklist-label" for="resume-linkedin">LinkedIn profile URL updated to vanity username</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="resume-portfolio" data-type="resume-checkbox"><label class="checklist-label" for="resume-portfolio">Online Portfolio website linked (GitHub Pages, Tableau Public)</label></div>
+        </div>
+
+        <div>
+          <div class="premium-card" style="background-color: var(--accent-light);">
+            <h3 class="card-title">🔗 Professional Portals</h3>
+            <div style="font-size:12px; line-height:1.6;">
+              <p>🌐 <strong>GitHub:</strong> Create 1 pinned placement repo.</p>
+              <p>🤝 <strong>LinkedIn:</strong> Update header summary, open to work status.</p>
+              <p>📊 <strong>Tableau Public:</strong> Host 2 dashboards.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 14. PROJECTS TRACKER ==================== -->
+    <section class="page-view" id="page-projects">
+      <div class="callout">
+        <span class="callout-icon">💻</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Portfolio Projects Manager</h4>
+          <p>Top applications require proof of skill. Build 2 high-quality projects showing technical pipelines: Data Gathering → Data Cleaning → Analysis/SQL → Visual Dashboard.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Project 1 -->
+        <div class="premium-card">
+          <div class="flex-between" style="margin-bottom: 12px;">
+            <h3 style="font-family:var(--font-heading); font-size:15px; font-weight:700;">📂 Project 1: Data Analytics Pipeline</h3>
+            <span class="badge badge-applied">SQL & Power BI</span>
+          </div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:15px;">Target: E-commerce Customer Segment Analysis using Python for preprocessing and SQL/Power BI for dashboard segmentation.</p>
+          
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-port1" data-type="project-checkbox"><label class="checklist-label" for="proj-port1">Complete dashboard creation</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-github1" data-type="project-checkbox"><label class="checklist-label" for="proj-github1">Write structured README inside GitHub Repo</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-doc1" data-type="project-checkbox"><label class="checklist-label" for="proj-doc1">Document SQL cleaning script queries</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-linkedin1" data-type="project-checkbox"><label class="checklist-label" for="proj-linkedin1">Post project walkthrough writeup on LinkedIn</label></div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="premium-card">
+          <div class="flex-between" style="margin-bottom: 12px;">
+            <h3 style="font-family:var(--font-heading); font-size:15px; font-weight:700;">📂 Project 2: Business Case Dashboard</h3>
+            <span class="badge badge-tech">Excel & Tableau</span>
+          </div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:15px;">Target: Financial Performance & Market Growth insights for a dummy corporation, summarizing product segment KPIs.</p>
+          
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-port2" data-type="project-checkbox"><label class="checklist-label" for="proj-port2">Complete dashboard creation</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-github2" data-type="project-checkbox"><label class="checklist-label" for="proj-github2">Write structured README inside GitHub Repo</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-doc2" data-type="project-checkbox"><label class="checklist-label" for="proj-doc2">Document analytical methodology steps</label></div>
+          <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="proj-linkedin2" data-type="project-checkbox"><label class="checklist-label" for="proj-linkedin2">Post project dashboard walkthrough on LinkedIn</label></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 15. COMPANY PREPARATION ==================== -->
+    <section class="page-view" id="page-company">
+      <div class="callout callout-warning">
+        <span class="callout-icon">🏢</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Interactive Company Tracker CRM</h4>
+          <p>Track applications, eligibility statuses, and test/interview outcomes. Update statuses in real-time to visualize placement prospects.</p>
+        </div>
+      </div>
+
+      <!-- Add Company form -->
+      <div class="premium-card" style="margin-bottom:20px;">
+        <h3 class="card-title">➕ Add New Target Company</h3>
+        <form id="add-company-form" class="notion-form">
+          <div class="grid-3" style="margin-bottom: 0;">
+            <div class="form-group">
+              <label for="new-company-name">Company Name</label>
+              <input type="text" id="new-company-name" class="notion-input" placeholder="e.g., Apple, McKinsey..." required>
+            </div>
+            <div class="form-group">
+              <label for="new-company-status">Initial Status</label>
+              <select id="new-company-status" class="notion-select">
+                <option value="not_applied">Not Applied</option>
+                <option value="applied">Applied</option>
+                <option value="oa">OA (Online Assessment)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="new-company-notes">Notes / Special Focus</label>
+              <input type="text" id="new-company-notes" class="notion-input" placeholder="e.g., SQL window functions needed...">
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <button type="submit" class="notion-btn">Add to Database</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Company CRM Table -->
+      <div class="premium-card" style="overflow-x:auto;">
+        <h3 class="card-title">🗄 Target Companies CRM Database</h3>
+        <table class="notion-db" style="min-width: 800px;">
+          <thead>
+            <tr>
+              <th style="width:150px;">Company</th>
+              <th style="width:180px;">Status</th>
+              <th style="width:90px;">Resume Submitted</th>
+              <th style="width:110px;">OA</th>
+              <th style="width:110px;">Tech Round</th>
+              <th>Notes / Action Plan</th>
+              <th style="width:80px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="company-crm-table-body">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== 16. INTERVIEW PREPARATION ==================== -->
+    <section class="page-view" id="page-interview">
+      <div class="callout callout-success">
+        <span class="callout-icon">🎤</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Interactive Q&A Cheat Sheet</h4>
+          <p>Review standard placement queries. Click questions to expand and reveal structural answers.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Technical Questions -->
+        <div>
+          <h3 style="font-family:var(--font-heading); margin-bottom: 12px;">🧠 Technical Prep (SQL, Pandas, Stats)</h3>
+          
+          <div class="faq-item">
+            <div class="faq-header">Q: Difference between WHERE and HAVING clause in SQL?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <ul>
+                <li><code>WHERE</code> filters rows *before* grouping occurs. It cannot filter aggregate functions like SUM/AVG.</li>
+                <li><code>HAVING</code> filters rows *after* grouping has occurred. It is used exclusively to filter aggregated query fields.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: Explain RANK, DENSE_RANK, and ROW_NUMBER?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <ul>
+                <li><code>ROW_NUMBER()</code> assigns a unique sequential integer to rows (e.g., 1, 2, 3, 4).</li>
+                <li><code>RANK()</code> assigns identical ranks to duplicates, but *skips* the next rank number (e.g., 1, 2, 2, 4).</li>
+                <li><code>DENSE_RANK()</code> assigns identical ranks to duplicates without skipping ranks (e.g., 1, 2, 2, 3).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: What is a Left Join vs an Inner Join?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <ul>
+                <li><code>INNER JOIN</code> returns rows only when there is a match in both tables.</li>
+                <li><code>LEFT JOIN</code> returns all records from the left table, and matching records from the right table. If no match is found, nulls are shown for the right table columns.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: What are the assumptions of Linear Regression?</div>
+            <div class="faq-body">
+              <strong>Answer:</strong>
+              <ol>
+                <li>Linearity between independent and dependent variables.</li>
+                <li>Homoscedasticity (constant variance of residuals).</li>
+                <li>Independence of observations.</li>
+                <li>Normal distribution of residuals.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- HR Questions -->
+        <div>
+          <h3 style="font-family:var(--font-heading); margin-bottom: 12px;">🤝 HR & Behavioral Prep (STAR Method)</h3>
+          
+          <div class="faq-item">
+            <div class="faq-header">Q: Tell me about yourself?</div>
+            <div class="faq-body">
+              <strong>Structural Formula:</strong>
+              <p>Present, Past, Future.
+              <br>1. "I am a final-year college student specializing in data analytics..." (Present)
+              <br>2. "I've built dashboards in Power BI and solved 100+ SQL querying scenarios..." (Past/Skills)
+              <br>3. "I am looking to start my career with a company like yours where I can analyze real-world metrics..." (Future)</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: What is your greatest strength / weakness?</div>
+            <div class="faq-body">
+              <strong>Answer Guidelines:</strong>
+              <p><strong>Strength:</strong> Select a skill (like structured logical debugging or stakeholder process mapping) backed by a metric project description.
+              <br><strong>Weakness:</strong> Pick a real weakness that doesn't damage job chances (e.g., "sometimes getting too focused on details"), and show how you actively solve it (e.g., "I use time-block planners like this one to stick to project limits").</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-header">Q: Tell me about a time you resolved a team conflict?</div>
+            <div class="faq-body">
+              <strong>Structure with STAR (Situation, Task, Action, Result):</strong>
+              <p><strong>Situation:</strong> Team project conflict on datasets.
+              <br><strong>Task:</strong> Align team roles to complete project within 3 days.
+              <br><strong>Action:</strong> Set up a logical project breakdown and compromise matrix based on members' skillsets.
+              <br><strong>Result:</strong> Submitted project 1 day early, got positive feedback.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 17. DAILY LEARNING JOURNAL ==================== -->
+    <section class="page-view" id="page-learning">
+      <div class="callout callout-success" style="border-left-color: var(--success);">
+        <span class="callout-icon">📖</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Daily New Learning Journal</h4>
+          <p>Every single day of the 90 days, you must learn **one new thing**. Write down what you learned, your key takeaway, and where you can apply it.</p>
+        </div>
+      </div>
+
+      <div class="grid-sidebar-layout">
+        <!-- Input Form -->
+        <div class="premium-card">
+          <h3 class="card-title">🖋 Log Today's New Learning</h3>
+          <form id="add-learning-form" class="notion-form">
+            <div class="grid-2" style="margin-bottom:0;">
+              <div class="form-group">
+                <label for="learn-category">Category</label>
+                <select id="learn-category" class="notion-select">
+                  <option value="SQL">SQL</option>
+                  <option value="Python">Python</option>
+                  <option value="Excel">Excel</option>
+                  <option value="Power BI">Power BI</option>
+                  <option value="Tableau">Tableau</option>
+                  <option value="Statistics">Statistics</option>
+                  <option value="Business Analysis">Business Analysis</option>
+                  <option value="Interview Question">Interview Question</option>
+                  <option value="Business News">Business News</option>
+                  <option value="Case Study">Case Study</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="learn-topic">What did you learn today?</label>
+                <input type="text" id="learn-topic" class="notion-input" placeholder="e.g., Pandas value_counts() counts nulls if..." required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="learn-takeaway">Key Takeaway</label>
+              <textarea id="learn-takeaway" class="notion-textarea" placeholder="Crucial learning points..." required style="height: 60px;"></textarea>
+            </div>
+
+            <div class="grid-2" style="margin-bottom:0;">
+              <div class="form-group">
+                <label for="learn-source">Where did you learn it?</label>
+                <input type="text" id="learn-source" class="notion-input" placeholder="e.g., StackOverflow, Medium article...">
+              </div>
+              <div class="form-group">
+                <label for="learn-application">How will you apply it?</label>
+                <input type="text" id="learn-application" class="notion-input" placeholder="e.g., Use it to clean demographics column...">
+              </div>
+            </div>
+
+            <div style="text-align:right;">
+              <button type="submit" class="notion-btn">Save Journal Entry</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Log List -->
+        <div>
+          <h3 style="font-family:var(--font-heading); margin-bottom: 12px;">📅 Learning Log History</h3>
+          <div class="journal-log-list" id="journal-list">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 18. WEEKLY REVIEW ==================== -->
+    <section class="page-view" id="page-weekly">
+      <div class="callout">
+        <span class="callout-icon">📅</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Weekly Retrospective</h4>
+          <p>Fill this form every Sunday. Review hours studied, identify weaknesses, and prepare objectives for the coming week.</p>
+        </div>
+      </div>
+
+      <div class="premium-card">
+        <h3 class="card-title">📝 Weekly Review Input</h3>
+        <div class="notion-form">
+          <div class="grid-2" style="margin-bottom:0;">
+            <div class="form-group">
+              <label for="weekly-hours">Total Study Hours This Week</label>
+              <input type="text" id="weekly-hours" class="notion-input" placeholder="e.g., 24 hours">
+            </div>
+            <div class="form-group">
+              <label for="weekly-topics">Topics Completed</label>
+              <input type="text" id="weekly-topics" class="notion-input" placeholder="e.g., CTE, subqueries, lists">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="weekly-ach">Best Achievement of the Week</label>
+            <textarea id="weekly-ach" class="notion-textarea" placeholder="What went really well?" style="height:60px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="weekly-weak">Weak Areas needing review</label>
+            <textarea id="weekly-weak" class="notion-textarea" placeholder="Where did you get stuck?" style="height:60px;"></textarea>
+          </div>
+          <div class="grid-2" style="margin-bottom:0;">
+            <div class="form-group">
+              <label for="weekly-comp">Companies Researched / Portals Applied</label>
+              <input type="text" id="weekly-comp" class="notion-input" placeholder="e.g., EY applied, Accenture OA">
+            </div>
+            <div class="form-group">
+              <label for="weekly-mock">Mock Interviews Practice Outcomes</label>
+              <input type="text" id="weekly-mock" class="notion-input" placeholder="e.g., HR STAR answer structure updated">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="weekly-goals">Goals for Next Week</label>
+            <textarea id="weekly-goals" class="notion-textarea" placeholder="What must you accomplish next week?" style="height:60px;"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 19. MONTHLY REVIEW ==================== -->
+    <section class="page-view" id="page-monthly">
+      <div class="callout callout-warning">
+        <span class="callout-icon">📆</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Monthly Progress Evaluator</h4>
+          <p>Assess placement readiness benchmarks and track certifications achieved during each of the 3 months.</p>
+        </div>
+      </div>
+
+      <div class="premium-card">
+        <h3 class="card-title">📝 Monthly Review Input</h3>
+        <div class="notion-form">
+          <div class="form-group">
+            <label for="monthly-skills">Major Technical & BA Skills Learned</label>
+            <textarea id="monthly-skills" class="notion-textarea" placeholder="What core skills are now on your resume?" style="height:60px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="monthly-projects">Project Portfolio Improvements</label>
+            <textarea id="monthly-projects" class="notion-textarea" placeholder="Detail mockups, datasets cleanups, dash publishes..." style="height:60px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="monthly-certs">Certifications Obtained</label>
+            <input type="text" id="monthly-certs" class="notion-input" placeholder="e.g., Microsoft PL-300 Certification, Google Analytics Cert">
+          </div>
+          
+          <div class="grid-2" style="margin-top:15px; margin-bottom: 0;">
+            <div class="form-group">
+              <label for="monthly-readiness-interview">Self-Rated Interview Readiness (%)</label>
+              <select id="monthly-readiness-interview" class="notion-select">
+                <option value="10">10% - Basic Knowledge</option>
+                <option value="30">30% - Know Syntax</option>
+                <option value="50">50% - Medium Problems solved</option>
+                <option value="70">70% - STAR behavioral ready</option>
+                <option value="90">90% - Confident and Mocked</option>
+                <option value="100">100% - Fully placement ready</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="monthly-readiness-place">Overall Placement Readiness Percentage (%)</label>
+              <select id="monthly-readiness-place" class="notion-select">
+                <option value="10">10%</option>
+                <option value="30">30%</option>
+                <option value="50">50%</option>
+                <option value="70">70%</option>
+                <option value="90">90%</option>
+                <option value="100">100%</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 20. ACHIEVEMENT BOARD ==================== -->
+    <section class="page-view" id="page-achievements">
+      <div class="callout callout-success">
+        <span class="callout-icon">🏆</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Placement Achievement Board</h4>
+          <p>These badges light up as you check off topics, projects, resumes, and progress through job applications. Push your skills to unlock all 12!</p>
+        </div>
+      </div>
+
+      <div class="badge-grid">
+        <!-- Badge 1 -->
+        <div class="achievement-badge" id="ach-100sql">
+          <div class="achievement-badge-icon">🗄</div>
+          <h4 class="achievement-badge-title">100 SQL Queries</h4>
+          <p class="achievement-badge-desc">Checked SQL Practice queries</p>
+        </div>
+        <!-- Badge 2 -->
+        <div class="achievement-badge" id="ach-py">
+          <div class="achievement-badge-icon">🐍</div>
+          <h4 class="achievement-badge-title">Complete Python</h4>
+          <p class="achievement-badge-desc">Finished all core Python topics</p>
+        </div>
+        <!-- Badge 3 -->
+        <div class="achievement-badge" id="ach-ex">
+          <div class="achievement-badge-icon">📈</div>
+          <h4 class="achievement-badge-title">Complete Excel</h4>
+          <p class="achievement-badge-desc">Mastered complex Excel functions</p>
+        </div>
+        <!-- Badge 4 -->
+        <div class="achievement-badge" id="ach-pbi">
+          <div class="achievement-badge-icon">📊</div>
+          <h4 class="achievement-badge-title">Complete Power BI</h4>
+          <p class="achievement-badge-desc">Mastered DAX and data relationships</p>
+        </div>
+        <!-- Badge 5 -->
+        <div class="achievement-badge" id="ach-tab">
+          <div class="achievement-badge-icon">📉</div>
+          <h4 class="achievement-badge-title">Complete Tableau</h4>
+          <p class="achievement-badge-desc">Visualized dashboards and parameters</p>
+        </div>
+        <!-- Badge 6 -->
+        <div class="achievement-badge" id="ach-stats">
+          <div class="achievement-badge-icon">📚</div>
+          <h4 class="achievement-badge-title">Complete Statistics</h4>
+          <p class="achievement-badge-desc">Learned probability and Hypothesis testing</p>
+        </div>
+        <!-- Badge 7 -->
+        <div class="achievement-badge" id="ach-ba">
+          <div class="achievement-badge-icon">💼</div>
+          <h4 class="achievement-badge-title">Complete BA</h4>
+          <p class="achievement-badge-desc">Mastered Agile, BRD, and UML models</p>
+        </div>
+        <!-- Badge 8 -->
+        <div class="achievement-badge" id="ach-portfolio">
+          <div class="achievement-badge-icon">💻</div>
+          <h4 class="achievement-badge-title">Portfolio Complete</h4>
+          <p class="achievement-badge-desc">Linked and updated projects database</p>
+        </div>
+        <!-- Badge 9 -->
+        <div class="achievement-badge" id="ach-resume">
+          <div class="achievement-badge-icon">📄</div>
+          <h4 class="achievement-badge-title">Resume Complete</h4>
+          <p class="achievement-badge-desc">Formatted ATS resume correctly</p>
+        </div>
+        <!-- Badge 10 -->
+        <div class="achievement-badge" id="ach-streak">
+          <div class="achievement-badge-icon">🔥</div>
+          <h4 class="achievement-badge-title">10-Day Streak</h4>
+          <p class="achievement-badge-desc">Maintained placement study streak</p>
+        </div>
+        <!-- Badge 11 -->
+        <div class="achievement-badge" id="ach-interview">
+          <div class="achievement-badge-icon">🎤</div>
+          <h4 class="achievement-badge-title">First Interview</h4>
+          <p class="achievement-badge-desc">Status set to Technical Round or HR Round</p>
+        </div>
+        <!-- Badge 12 -->
+        <div class="achievement-badge" id="ach-offer">
+          <div class="achievement-badge-icon">🎉</div>
+          <h4 class="achievement-badge-title">First Offer</h4>
+          <p class="achievement-badge-desc">Logged Offered status in CRM board</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 21. EMERGENCY MODE ==================== -->
+    <section class="page-view" id="page-emergency">
+      <div class="callout callout-danger">
+        <span class="callout-icon">🚨</span>
+        <div class="callout-content">
+          <h4 class="callout-title">Emergency Routine Manager</h4>
+          <p>Exams, illness, or travel? Use this view to cut down requirements and target only the core minimum tasks. Completing these 5 maintains your placement progress streak.</p>
+        </div>
+      </div>
+
+      <div class="premium-card" style="border: 1px solid var(--danger); background: radial-gradient(circle at bottom left, rgba(231,76,60,0.1), transparent);">
+        <h3 class="card-title" style="color:var(--danger);">🚨 5 Critical Tasks</h3>
+        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:15px;">Tick these off when done on busy days:</p>
+        
+        <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-sql-view" data-type="checklist" disabled><label class="checklist-label">Solve 1 SQL Problem</label></div>
+        <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-python-view" data-type="checklist" disabled><label class="checklist-label">15 Minutes Python script typing</label></div>
+        <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-apt-view" data-type="checklist" disabled><label class="checklist-label">15 Minutes Logical Reasoning / Quant</label></div>
+        <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-learn-view" data-type="checklist" disabled><label class="checklist-label">Learn One New Thing today (Mandatory)</label></div>
+        <div class="checklist-item"><input type="checkbox" class="custom-checkbox" id="em-dash-view" data-type="checklist" disabled><label class="checklist-label">Update Dashboard checklist states</label></div>
+
+        <div style="margin-top:20px; font-size:11px; color:var(--text-secondary);">
+          💡 Note: These checkboxes are linked to the Planner sidebar widget. Fill them out under the **Daily Planner** page.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
