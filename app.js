@@ -919,8 +919,9 @@ function setupListeners() {
       if (!activePage) return;
 
       const pageName = document.getElementById('header-title-text').textContent;
-      if (confirm(`Do you want to reset all checkboxes for ${pageName}?`)) {
+      if (confirm(`Do you want to reset all progress for ${pageName}?`)) {
         
+        // 1. Handle pages with checkboxes
         const pageCheckboxes = activePage.querySelectorAll('input.custom-checkbox');
         pageCheckboxes.forEach(cb => {
           const id = cb.id;
@@ -940,6 +941,28 @@ function setupListeners() {
             state.projectTrackers[id] = false;
           }
         });
+
+        // 2. Handle Habit Board
+        if (activePage.id === 'page-habits') {
+          Object.keys(state.habits).forEach(habit => {
+            state.habits[habit] = [false, false, false, false, false, false, false];
+          });
+          renderHabits();
+        }
+
+        // 3. Handle Weekly/Monthly Reviews
+        if (activePage.id === 'page-weekly') {
+          Object.keys(state.weeklyReview).forEach(key => state.weeklyReview[key] = '');
+          activePage.querySelectorAll('input, textarea').forEach(el => el.value = '');
+        }
+        
+        if (activePage.id === 'page-monthly') {
+          Object.keys(state.monthlyReview).forEach(key => state.monthlyReview[key] = '');
+          activePage.querySelectorAll('input, textarea').forEach(el => {
+            if (el.tagName === 'INPUT') el.value = '0';
+            else el.value = '';
+          });
+        }
 
         saveState();
         updateDynamicStats();
