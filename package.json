@@ -1,0 +1,10 @@
+{
+  "name": "analyst-os",
+  "version": "1.0.0",
+  "description": "90-Day Placement Prep Dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
